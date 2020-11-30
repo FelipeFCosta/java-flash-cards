@@ -56,9 +56,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnExcluir.setEnabled(true);
                 int index = lstDeque.getSelectionModel().getMaxSelectionIndex();
                 lblMostraData.setText(decks.get(index).getData().imprimirData());
-                
-                //Atualizar quantidade de vezes que o deck foi estudado:
-                lblVezesEstudadasMostrar.setText(decks.get(index).getVezesEstudadas() + " vezes");
             } else {
                 btnAcessar.setEnabled(false);
                 btnRenomear.setEnabled(false);
@@ -67,20 +64,16 @@ public class TelaInicial extends javax.swing.JFrame {
         });
         
         // Carregar decks adicionados anteriormente:
-        if(user.isCarregouDados() == false) {
-            int iterator = 0;
-            boolean verificador;
-
-            do {
-                Deck deck = new Deck(user);
-                verificador = deck.carregarDeck(iterator);
-                if (verificador && deck.getNome() != null)
-                    decks.add(deck);
-                ++iterator;
-            } while(verificador);
-            
-            user.setCarregouDados(true);
-        }
+        int iterator = 0;
+        boolean verificador;
+        
+        do {
+            Deck deck = new Deck(user);
+            verificador = deck.carregarDeck(iterator);
+            if (verificador && deck.getNome() != null)
+                decks.add(deck);
+            ++iterator;
+        } while(verificador);
         
         // Colocar os decks na tabela (Se foram adicionados anteriormente):
         lstDeque.setModel(mod);
@@ -89,12 +82,12 @@ public class TelaInicial extends javax.swing.JFrame {
         }
         
         // limpar deck depois de fechar a janela
-        /*this.addWindowListener(new java.awt.event.WindowAdapter() {
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 user.setDecks(new ArrayList<>());
             }
-        });*/
+        });
         
     }
 
@@ -121,8 +114,9 @@ public class TelaInicial extends javax.swing.JFrame {
         lblData = new javax.swing.JLabel();
         lblMostraData = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
-        lblVezesEstudadas = new javax.swing.JLabel();
-        lblVezesEstudadasMostrar = new javax.swing.JLabel();
+        lblQtdCards = new javax.swing.JLabel();
+        lblMostraQtdCards = new javax.swing.JLabel();
+        panelDescricao = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -211,9 +205,9 @@ public class TelaInicial extends javax.swing.JFrame {
 
         lblMostraData.setText("DD/MM/AAAA");
 
-        lblVezesEstudadas.setText("Quantidade de vezes estudadas:");
+        lblQtdCards.setText("Quantidade de cards: ");
 
-        lblVezesEstudadasMostrar.setText("0");
+        lblMostraQtdCards.setText("0");
 
         javax.swing.GroupLayout panelHistoricoLayout = new javax.swing.GroupLayout(panelHistorico);
         panelHistorico.setLayout(panelHistoricoLayout);
@@ -222,13 +216,17 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(panelHistoricoLayout.createSequentialGroup()
                 .addComponent(lblData)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblMostraData, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
+                .addComponent(lblMostraData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panelHistoricoLayout.createSequentialGroup()
                 .addGroup(panelHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblVezesEstudadas)
-                    .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblVezesEstudadasMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelHistoricoLayout.createSequentialGroup()
+                        .addComponent(lblQtdCards)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblMostraQtdCards, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelHistoricoLayout.createSequentialGroup()
+                        .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         panelHistoricoLayout.setVerticalGroup(
             panelHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,10 +237,24 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
-                .addComponent(lblVezesEstudadas, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblVezesEstudadasMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGroup(panelHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblQtdCards, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMostraQtdCards, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
+
+        panelDescricao.setBackground(new java.awt.Color(245, 245, 245));
+        panelDescricao.setBorder(javax.swing.BorderFactory.createTitledBorder("Descrição"));
+
+        javax.swing.GroupLayout panelDescricaoLayout = new javax.swing.GroupLayout(panelDescricao);
+        panelDescricao.setLayout(panelDescricaoLayout);
+        panelDescricaoLayout.setHorizontalGroup(
+            panelDescricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelDescricaoLayout.setVerticalGroup(
+            panelDescricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -263,16 +275,21 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelHistorico, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelHistorico, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                            .addComponent(panelDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(panelHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -376,7 +393,7 @@ public class TelaInicial extends javax.swing.JFrame {
             if (!newitem.isEmpty()) {
                 mod.remove(index);
                 mod.add(index, newitem);
-                decks.get(index).modificarDeck(newitem, index, 1);
+                decks.get(index).modificarDeck(newitem, index);
                 decks.get(index).setNome(newitem);
                 lstDeque.getSelectionModel().setLeadSelectionIndex(index);
             }
@@ -398,7 +415,6 @@ public class TelaInicial extends javax.swing.JFrame {
         TelaDeck telaDeck = new TelaDeck(decks.get(index));
         telaDeck.setVisible(true);
         decks.set(index, telaDeck.getDeck());
-        decks.get(index).setIndiceDoDeckAtual(index);
     }//GEN-LAST:event_btnAcessarActionPerformed
 
     private void jPanelMouseClicked(javax.swing.JPanel jPanel) {
@@ -457,9 +473,10 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblMostraData;
-    private javax.swing.JLabel lblVezesEstudadas;
-    private javax.swing.JLabel lblVezesEstudadasMostrar;
+    private javax.swing.JLabel lblMostraQtdCards;
+    private javax.swing.JLabel lblQtdCards;
     private javax.swing.JList<String> lstDeque;
+    private javax.swing.JPanel panelDescricao;
     private javax.swing.JPanel panelHistorico;
     private javax.swing.JPanel panelInicial;
     private javax.swing.JTextField txtAdicionar;

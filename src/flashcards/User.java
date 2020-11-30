@@ -34,7 +34,6 @@ public class User {
     private String nome;
     private String senha;
     private Data data;
-    private boolean carregouDados = false;
     ArrayList<Deck> decks;
 
     public User(){
@@ -312,14 +311,5 @@ public class User {
 
     public void setDecks(ArrayList<Deck> decks) {
         this.decks = decks;
-    }
-
-    public boolean isCarregouDados() {
-        return carregouDados;
-    }
-
-    public void setCarregouDados(boolean carregouDados) {
-        this.carregouDados = carregouDados;
-    }
-    
+    }   
 }
