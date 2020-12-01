@@ -347,7 +347,7 @@ public class TelaDeck extends javax.swing.JFrame {
             
             Calendar c = Calendar.getInstance();
             
-            Data data = new Data(c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.MONTH), c.get(Calendar.YEAR), c.get(Calendar.HOUR_OF_DAY));
+            Data data = new Data(c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
             
             Deck newDeck = new Deck(nomeDeck, data);
             newDeck.setUser(user);
@@ -385,7 +385,7 @@ public class TelaDeck extends javax.swing.JFrame {
             if (!newitem.isEmpty()) {
                 mod.remove(index);
                 mod.add(index, newitem);
-                decks.get(index).atualizaArquivo(newitem, index, 1);
+                decks.get(index).atualizaArquivo(newitem, index, false);
                 decks.get(index).setNome(newitem);
                 lstDeque.getSelectionModel().setLeadSelectionIndex(index);
             }

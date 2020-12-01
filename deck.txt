@@ -1,5 +1,4 @@
-Felipe;verbos;29/11/2020;19
+Felipe;verbos;29/11/2020;25
 Felipe;nouns;29/11/2020;0
 Felipe;phrasal verbs;29/11/2020;1
 Joao;Deck 1;30/11/2020;0
-Felipe;deck 2;30/11/2020;0

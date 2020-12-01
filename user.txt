@@ -1,2 +1,3 @@
-Felipe;123;29/11/2020
-Joao;321;30/11/2020
+felipe123;Felipe;123;29/11/2020
+joaozinho;Joao;321;30/11/2020
+pedrinho;Pedro;000;30/11/2020

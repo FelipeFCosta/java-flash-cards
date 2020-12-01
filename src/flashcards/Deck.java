@@ -22,10 +22,11 @@ import java.util.Scanner;
  * @author felip
  */
 public class Deck {
-    private String nome;
-    private Data data;
+    private String nome;    //
+    private Data data;  // data de criacao do deck
     private boolean carregouDados = false;
     private int VezesEstudadas = 0;
+    // usado para atualizar o numero de vezes estudadas no arquivo deck.txt
     private int indiceDoDeckAtual;
     
     // Referências às outras classes
@@ -46,6 +47,7 @@ public class Deck {
         cards.add(c);
     }
     
+    // adiciona um deck ao arquivo deck.txt
     public void salvarDeck() {
         try{
             File file = new File("deck.txt");
@@ -152,7 +154,7 @@ public class Deck {
     }
     
     // renomeia o deck no arquivo deck.txt
-    public void atualizaArquivo(String novoNome, int index, int tipo) {
+    public void atualizaArquivo(String novoNome, int index, boolean isAtualizaVezesEstudadas) {
         try{
             File deckFile = new File("deck.txt");
             File temp = new File("tempDeck.txt");
@@ -172,12 +174,12 @@ public class Deck {
                 if (count != index)
                     psTemp.print(currentLine + System.getProperty("line.separator"));
                 else {
-                    if(tipo == 1) {
+                    if(!isAtualizaVezesEstudadas) {
                         divisores = currentLine.split(";");
                         psTemp.print(divisores[0] + ";" + novoNome + ";" + 
                             divisores[2] + ";" + divisores[3] + System.getProperty("line.separator"));
                 
-                    } else if(tipo == 2) {
+                    } else if(isAtualizaVezesEstudadas) {
                         divisores = currentLine.split(";");
                         psTemp.print(divisores[0] + ";" + divisores[1] + ";" + 
                             divisores[2] + ";" + novoNome + System.getProperty("line.separator"));
@@ -185,8 +187,9 @@ public class Deck {
                 }
                 ++count;
             }
-            //          nomeAntigo, novoNome
-            if(tipo == 1)
+            
+            if(!isAtualizaVezesEstudadas)
+                //          nomeAntigo, novoNome
                 atualizarCard(getNome(), novoNome);
             
             Scanner scanTemp = new Scanner(temp);

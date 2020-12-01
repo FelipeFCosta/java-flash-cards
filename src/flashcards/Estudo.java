@@ -40,11 +40,6 @@ public class Estudo {
         return null;
     }
     
-    // retorna o card à mostra
-    public Card getPrimeiroCard() {
-        return primeiroCard;
-    }
-    
     // incrementa o número de acertos do card à mostra e do estudo
     public void acertei() {
         numAcertos += 1;
@@ -54,16 +49,16 @@ public class Estudo {
         Card cardAcertou = proximaFila.remove();
         proximaFila.add(cardAcertou);
     }
+  
+    // incrementa o número de erros do card à mostra e do estuo
+    public void errei() {
+        primeiroCard.setNumErros(primeiroCard.getNumErros() + 1);
+    }
     
     // retorna a lista atualizada de cards
     public ArrayList<Card> novaOrdemCards() {
         deck.setCards(new ArrayList<>(proximaFila));
         return deck.getCards();
-    }
-    
-    // incrementa o número de erros do card à mostra e do estuo
-    public void errei() {
-        primeiroCard.setNumErros(primeiroCard.getNumErros() + 1);
     }
 
     public int getNumAcertos() {
@@ -72,5 +67,10 @@ public class Estudo {
     
     public Estudo novoEstudo() {
         return new Estudo(deck);
+    }
+    
+    // retorna o card à mostra
+    public Card getPrimeiroCard() {
+        return primeiroCard;
     }
 }

@@ -1,4 +1,4 @@
-Felipe;verbos;twist;entortar;11;10;29/11/2020
-Felipe;verbos;carry;carregar;12;9;29/11/2020
-Felipe;verbos;Área do círculo;pi*r^2;3;4;30/11/2020
-Felipe;verbos;shake;balançar;14;7;29/11/2020
+Felipe;verbos;Área do círculo;pi*r^2;6;9;30/11/2020
+Felipe;verbos;shake;balançar;17;23;29/11/2020
+Felipe;verbos;twist;entortar;14;17;29/11/2020
+Felipe;verbos;carry;carregar;17;13;29/11/2020

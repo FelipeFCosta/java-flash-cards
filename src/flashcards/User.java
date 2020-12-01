@@ -9,19 +9,10 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.nio.file.DirectoryNotEmptyException;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -32,17 +23,20 @@ import java.util.Scanner;
 public class User {
     
     private String nome;
+    private String username;
     private String senha;
-    private Data data;
     private boolean carregouDados = false;
+    
+    private Data data;
     ArrayList<Deck> decks;
 
     public User(){
         
     }
     
-    public User(String nome, String senha, Data data) {
+    public User(String nome, String username, String senha, Data data) {
         this.nome = nome;
+        this.username = username;
         this.senha = senha;
         this.data = data;
         decks = new ArrayList();
@@ -67,14 +61,14 @@ public class User {
             do {
                 linha = br.readLine();
                 
-                
                 if(contador == index && linha != null) {
                     String[] divisoes = linha.split(";");
                     // Carregar os atributos de user separadamente:
-                    user.setNome(divisoes[0]);
-                    user.setSenha(divisoes[1]);
+                    user.setUsername(divisoes[0]);
+                    user.setNome(divisoes[1]);
+                    user.setSenha(divisoes[2]);
                     /*Adicionando data de criação: */
-                    dataAuxiliar.setDataComString(divisoes[2]);
+                    dataAuxiliar.setDataComString(divisoes[3]);
                     user.setData(dataAuxiliar);
                     user.getData().imprimirData();
                     user.decks = new ArrayList();
@@ -99,7 +93,7 @@ public class User {
             FileWriter fr = new FileWriter(file, true);
             BufferedWriter bw = new BufferedWriter(fr);
             
-            bw.write(this.getNome() + ";" + this.getSenha() + ";" + 
+            bw.write(this.getUsername() + ";" + this.getNome() + ";" + this.getSenha() + ";" + 
                     this.getData().imprimirData() + System.getProperty("line.separator"));
             
             bw.close();
@@ -109,7 +103,7 @@ public class User {
         }
     }
     
-    public void modificar(String nome, String senha, int index) {
+    public void atualizaArquivo(String nome, String senha, int index) {
         try{
             File userFile = new File("user.txt");
             File temp = new File("tempUser.txt");
@@ -316,6 +310,14 @@ public class User {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getSenha() {

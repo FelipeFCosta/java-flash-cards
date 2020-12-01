@@ -213,10 +213,12 @@ public class TelaUser extends javax.swing.JFrame {
 
         lstUsers.setModel(modUser);
         javax.swing.JTextField tfNome = new javax.swing.JTextField();
+        javax.swing.JTextField tfUsername = new javax.swing.JTextField();
         javax.swing.JPasswordField tfSenha = new javax.swing.JPasswordField();
 
         Object[] message = {
             "Nome: ", tfNome,
+            "Username: ", tfUsername,
             "Senha: ", tfSenha,
         };
         tfSenha.setEchoChar('\u2022');
@@ -226,6 +228,7 @@ public class TelaUser extends javax.swing.JFrame {
 
         if(option == JOptionPane.OK_OPTION) {
             String nome = tfNome.getText();
+            String username = tfUsername.getText();
             String senha = tfSenha.getText();
 
             if (nome.equals("") || senha.equals("")) {
@@ -233,11 +236,10 @@ public class TelaUser extends javax.swing.JFrame {
                     "Aviso", JOptionPane.WARNING_MESSAGE);
             } else {
                 Calendar c = Calendar.getInstance();
-                Data dataDeCriacao = new Data(c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.MONTH), c.get(Calendar.YEAR), c.get(Calendar.HOUR_OF_DAY));
-                User newUser = new User(nome, senha, dataDeCriacao);
+                Data dataDeCriacao = new Data(c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
+                User newUser = new User(nome, username, senha, dataDeCriacao);
 
                 users.add(newUser);
-                
                 // Salvamento automático do usuário:
                 newUser.salvarUser();
                 
@@ -252,11 +254,13 @@ public class TelaUser extends javax.swing.JFrame {
 
         javax.swing.JPasswordField pfValidar = new javax.swing.JPasswordField();
         javax.swing.JTextField tfNome = new javax.swing.JTextField(users.get(i).getNome());
+        javax.swing.JTextField tfUsername = new javax.swing.JTextField(users.get(i).getUsername());
         javax.swing.JPasswordField pfSenha = new javax.swing.JPasswordField(users.get(i).getSenha());
         Object[] message = {
             "Senha: ", pfValidar,
         };
         pfValidar.setEchoChar('\u2022');
+        tfUsername.setEnabled(false);
         
         int opt = JOptionPane.showConfirmDialog(null, message, "Insira a senha antiga:", JOptionPane.PLAIN_MESSAGE);
         
@@ -264,6 +268,7 @@ public class TelaUser extends javax.swing.JFrame {
             if (pfValidar.getText().equals(users.get(i).getSenha())) {
                 Object[] message2 = {
                     "Nome: ", tfNome,
+                    "Username: ", tfUsername,
                     "Senha: ", pfSenha,
                 };
                 pfSenha.setEchoChar('\u2022');
@@ -282,7 +287,7 @@ public class TelaUser extends javax.swing.JFrame {
                         modUser.remove(i);
                         modUser.add(i, newNome);
 
-                        users.get(i).modificar(newNome, newSenha, i);
+                        users.get(i).atualizaArquivo(newNome, newSenha, i);
                         users.get(i).setNome(newNome);
                         users.get(i).setSenha(newSenha);
                     }

@@ -27,10 +27,11 @@ public class Card {
     private int numAcertos;
     private int numErros;
     
-    private Data data;
 
     // Referências às outras classes
     Deck deck;
+    private Data data;
+
 
     public Card(String frente, String verso, Data data) {
         this.frente = frente;

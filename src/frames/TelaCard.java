@@ -903,7 +903,7 @@ public class TelaCard extends javax.swing.JFrame {
             && !txtVerso.getText().equals("") && txtVerso.getForeground() != Color.GRAY) {
             
             Calendar c = Calendar.getInstance();
-            Data data = new Data(c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.MONTH), c.get(Calendar.YEAR), c.get(Calendar.HOUR_OF_DAY));
+            Data data = new Data(c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
 
             
             String frente = txtFrente.getText().trim();
@@ -1013,7 +1013,8 @@ public class TelaCard extends javax.swing.JFrame {
         // Dizer se o deck foi estudado ou não:
         int qtdVezesEstudadas = deck.getVezesEstudadas() + 1;
         deck.setVezesEstudadas(qtdVezesEstudadas);
-        deck.atualizaArquivo(Integer.toString(deck.getVezesEstudadas()), deck.getIndiceDoDeck(), 2);
+        // atualiza o número de vezes estudadas
+        deck.atualizaArquivo(Integer.toString(deck.getVezesEstudadas()), deck.getIndiceDoDeck(), true);
         
     }//GEN-LAST:event_btnRetornarActionPerformed
 

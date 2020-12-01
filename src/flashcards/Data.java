@@ -13,24 +13,20 @@ public class Data {
     private int dia;
     private int mes;
     private int ano;
-    private int hora; // tem que criar 4 atributos
     private String dataFormatada;
     
     public Data() {
-        
     }
     
-    public Data(int dia, int mes, int ano, int hora) {
-        if(validarData(dia, mes, ano, hora)) {
+    public Data(int dia, int mes, int ano) {
+        if(validarData(dia, mes, ano)) {
             this.dia = dia;
             this.mes = mes;
             this.ano = ano;
-            this.hora = hora;
         } else {
             this.dia = 0;
             this.mes = 0;
             this.ano = 0;
-            this.hora = 0;
         }
         
         dataFormatada = this.dia + "/" + (this.mes+1) + "/" + this.ano;
@@ -68,8 +64,8 @@ public class Data {
         return dataFormatada;
     }// Exemplo de entrada na função: mes, ano, dia
     
-    private boolean validarData(int dia, int mes, int ano, int hora) {
-        return (dia > 0 && dia <= 31 && mes >0 && mes <= 12 && hora >= 0 && hora <= 23 && ano >= 0);
+    private boolean validarData(int dia, int mes, int ano) {
+        return (dia > 0 && dia <= 31 && mes >0 && mes <= 12 && ano >= 0);
     } // Caso a data seja adicionada manualmente.
     
     public void setDataComString(String dataEmString) {
@@ -108,14 +104,6 @@ public class Data {
         this.ano = ano;
     }
 
-    public int getHora() {
-        return hora;
-    }
-
-    public void setHora(int hora) {
-        this.hora = hora;
-    }
-
     public String getDataFormatada() {
         return dataFormatada;
     }
@@ -123,6 +111,4 @@ public class Data {
     public void setDataFormatada(String dataFormatada) {
         this.dataFormatada = dataFormatada;
     }
-    
-    
 }
